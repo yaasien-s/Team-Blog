@@ -1,30 +1,62 @@
 <template>
-<div class="signup">
-    <h1 class="text-3xl p-6 text-white">{{ name }}</h1>
-    <h1 class="text-center text-5xl mb-6 text-white">{{ name }}</h1>
+<div class="signup" >
+    <h1 class="text-3xl p-6 text-white">{{name}}</h1>
+    <h1 class="text-center text-5xl mb-6 text-white">{{name}}</h1>
           <p class="text-2xl text-center text-white">Kindly fill in the form to sign up to Branch, and welcome back!</p>
 
-           <form class="grid w-10/12 mx-auto space-y-5 mt-6" action="">
-              <input type="text" placeholder="Email" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl">
-              <input type="text" placeholder="Phone" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl">
-              <input type="text" placeholder="Username" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl">
-              <input type="password" placeholder="Password" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl">
-              <input type="password" placeholder="Confirm Password" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl">
-              <button class="bg-blue-300 px-5 py-1 text-2xl font-semibold rounded-full w-1/2 mx-auto">Sign Up</button>
+           <form class="grid w-10/12 mx-auto space-y-5 mt-6" @submit.prevent="register">
+              <input type="text" placeholder="Email" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl" v-model="email">
+              <input type="text" placeholder="Phone" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl" v-model="phone">
+              <input type="text" placeholder="Username" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl" v-model="name">
+              <input type="password" placeholder="Password" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl" v-model="password">
+              <!-- <input type="password" placeholder="Confirm Password" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl"> -->
+              <button class="bg-blue-300 px-5 py-1 text-2xl font-semibold rounded-full w-1/2 mx-auto" >Sign Up</button>
           </form>
 
           <div class="sign-up-link bg-white bg-opacity-50 absolute w-full p-2 bottom-0"><p class="text-2xl text-center">Already have an acount? <router-link :to="{ name: 'SignIn' }"><span class="font-bold">Sign In...</span></router-link></p></div>
 </div>
 </template>
 
-<script setup>
-import {useStore} from 'vuex'
-import {computed} from 'vue'
-const store = useStore()
+<script >
+export default{
+    data(){
+        return{
+            name:"",
+            email:"",
+            phone:"",
+            password:"",
+        }
+    },
+    methods:{
+        register(){
+             fetch("https://blog-bac.herokuapp.com/user/register/", {
+        method: "POST",
+        body: JSON.stringify({
+            name:this.name,
+            email:this.email,
+            phone:this.phone,
+            password:this.password,
+            // Cpassword:this.Cpassword,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => {
+            console.log("process went through")
+          localStorage.setItem("jwt", json.jwt);
+          localStorage.setItem("id", json.user._id);
+          localStorage.setItem("username", json.user.name);
+          localStorage.setItem("email", json.user.email);
+          localStorage.setItem("phone", json.user.phone);
+          alert("Welcome back" + " " + json.user.name);
+          this.$router.push({ name: "SignIn" });
+        })
+    },
+  },
 
-const name = computed(() => {
-    return store.state.user.name
-})
+}
 </script>
 
 <style lang="scss" scoped>

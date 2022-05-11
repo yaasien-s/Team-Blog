@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "flowbite": "^1.4.5",
+    "vee-validate": "^4.5.11",
     "vue": "^3.2.25",
     "vue-router": "^4.0.15",
     "vuex": "^4.0.2"

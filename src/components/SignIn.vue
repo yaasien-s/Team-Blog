@@ -26,7 +26,13 @@ const name = computed(() => {
     return store.state.user.name
 })
 </script>
-
+<script>
+export default {
+    data(){
+        
+    }
+}
+</script>
 <style lang="scss" scoped>
 .signin{
     background-image: url('../assets/images/LandingSection.png');
