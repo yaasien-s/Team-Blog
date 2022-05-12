@@ -1,7 +1,7 @@
 <template>
 <div class="signup" >
-    <h1 class="text-3xl p-6 text-white">{{name}}</h1>
-    <h1 class="text-center text-5xl mb-6 text-white">{{name}}</h1>
+    <h1 class="text-3xl p-6 text-white">Branch</h1>
+    <h1 class="text-center text-5xl mb-6 text-white">Branch</h1>
           <p class="text-2xl text-center text-white">Kindly fill in the form to sign up to Branch, and welcome back!</p>
 
            <form class="grid w-10/12 mx-auto space-y-5 mt-6" @submit.prevent="register">
@@ -17,7 +17,7 @@
 </div>
 </template>
 
-<script >
+<script>
 export default{
     data(){
         return{
@@ -45,11 +45,6 @@ export default{
         .then((response) => response.json())
         .then((json) => {
             console.log("process went through")
-          localStorage.setItem("jwt", json.jwt);
-          localStorage.setItem("id", json.user._id);
-          localStorage.setItem("username", json.user.name);
-          localStorage.setItem("email", json.user.email);
-          localStorage.setItem("phone", json.user.phone);
           alert("Welcome back" + " " + json.user.name);
           this.$router.push({ name: "SignIn" });
         })

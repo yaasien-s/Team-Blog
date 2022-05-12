@@ -7,9 +7,9 @@
 
           
 
-          <form class="grid w-10/12 mx-auto space-y-5 mt-6" action="">
-              <input type="text" placeholder="Username, phone number, or email" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl">
-              <input type="password" placeholder="Password" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl">
+          <form class="grid w-10/12 mx-auto space-y-5 mt-6" @submit.prevent="login">
+              <input type="text" placeholder="email" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl" v-model="email">
+              <input type="password" placeholder="Password" class="placeholder-white placeholder-opacity-50 rounded-full p-3 bg-white bg-opacity-50 border-none shadow-2xl" v-model="password">
               <button class="bg-blue-300 px-5 py-1 text-2xl font-semibold rounded-full w-1/2 mx-auto">Sign In</button>
           </form>
 
@@ -29,7 +29,36 @@ const name = computed(() => {
 <script>
 export default {
     data(){
-        
+        return{
+            name:"",
+            email:"",
+            password:""
+        }
+    },
+    methods:{
+        login(){
+            fetch("https://blog-bac.herokuapp.com/user/login", {
+                method: "POST",
+                body: JSON.stringify({
+            email:this.email,
+            password:this.password,
+        }),
+         headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        //   see if you can add the auth here coz i did some research and cant seem to find
+        }
+            })
+        .then((response) => (response.json))
+        .then((json) =>{
+            console.log("everything is good")
+            alert("welcome" + " ")
+// create a function for admin that if jwt == admins jwt then take u to dashboard
+            this.$router.push({name : "Feed"})
+        })
+        .catch((err) =>{
+          console.log("something went wrong", err)  
+        })
+        }
     }
 }
 </script>
