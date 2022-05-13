@@ -3,6 +3,7 @@ import SignIn from '/src/components/SignIn.vue'
 import SignUp from '/src/components/SignUp.vue'
 import Feed from '/src/components/Feed.vue'
 import Profile from '/src/components/Profile.vue'
+import Post from '/src/components/Post.vue'
 
 const routes = [
     {
@@ -24,6 +25,11 @@ const routes = [
         path: '/profile',
         name: 'Profile',
         component: Profile,
+    },
+    {
+        path: '/post',
+        name: 'Post',
+        component: Post,
     },
 ]
 
