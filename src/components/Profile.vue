@@ -15,7 +15,7 @@
         </div>
         <div class="user-posts p-6 grid grid-cols-2 mx-auto w-full">
             <img src="../assets/images/postimage.png" class="rounded-3xl" alt="">
-            <img src="../assets/images/postimage.png" class="rounded-3xl" alt="">
+            <!-- <img src="../assets/images/postimage.png" class="rounded-3xl" alt=""> -->
         </div>
     </div>
     <div class="D-profile p-12">
@@ -38,12 +38,7 @@
         </div>
         <!-- Remove images before intergrating -->
         <div class="user-posts grid grid-cols-3 gap-6 w-10/12 mx-auto mt-60">
-            <img class="rounded-2xl" src="../assets/images/postimage.png" alt="">
-            <img class="rounded-2xl" src="../assets/images/postimage.png" alt="">
-            <img class="rounded-2xl" src="../assets/images/postimage.png" alt="">
-            <img class="rounded-2xl" src="../assets/images/postimage.png" alt="">
-            <img class="rounded-2xl" src="../assets/images/postimage.png" alt="">
-            <img class="rounded-2xl" src="../assets/images/postimage.png" alt="">
+            <router-link :to="{ name: 'Post' }"><img class="rounded-2xl" src="../assets/images/postimage.png" alt=""></router-link>
         </div>
     </div>
 </template>
@@ -93,6 +88,7 @@
         background-position: center;
         background-size: cover;
         height: 100%;
+        padding-bottom: 199px;
 
         @media (max-width:600px) {
             display: none;
